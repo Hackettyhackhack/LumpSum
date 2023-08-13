@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgeting App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #totalBudget {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Budgeting App</h1>
+        <label for="budgetInput">Enter Lump Sum Amount:</label>
+        <input type="number" id="budgetInput">
+        <button id="setBudget">Set Budget</button>
+
+        <div id="expenseForm">
+            <h2>Add Expense</h2>
+            <label for="expenseAmount">Expense Amount:</label>
+            <input type="number" id="expenseAmount">
+            <button id="addExpense">Add Expense</button>
+        </div>
+
+        <div id="budgetSummary">
+            <h2>Budget Summary</h2>
+            <p>Total Budget: $<span id="totalBudget">0</span></p>
+            <p>Total Expenses: $<span id="totalExpenses">0</span></p>
+            <p>Remaining Budget: $<span id="remainingBudget">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let totalBudget = 0;
+        let totalExpenses = 0;
+
+        document.getElementById("setBudget").addEventListener("click", function() {
+            totalBudget = parseFloat(document.getElementById("budgetInput").value);
+            updateBudgetSummary();
+        });
+
+        document.getElementById("addExpense").addEventListener("click", function() {
+            const expenseAmount = parseFloat(document.getElementById("expenseAmount").value);
+            if (!isNaN(expenseAmount)) {
+                totalExpenses += expenseAmount;
+                updateBudgetSummary();
+            }
+        });
+
+        function updateBudgetSummary() {
+            const remainingBudget = totalBudget - totalExpenses;
+
+            document.getElementById("totalBudget").textContent = totalBudget.toFixed(2);
+            document.getElementById("totalExpenses").textContent = totalExpenses.toFixed(2);
+            document.getElementById("remainingBudget").textContent = remainingBudget.toFixed(2);
+        }
+    </script>
+</body>
+</html>
